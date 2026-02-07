@@ -30,10 +30,11 @@ public class RobotContainer
     {
         // Configure the trigger bindings
         configureBindings();
+        CommandScheduler.getInstance().setDefaultCommand(m_launcher, m_launcher.launchCommand(controller));
     }
 
     void configureBindings()
     {
-        new Trigger(() -> controller.getAButtonPressed()).onTrue(m_launcher.launchCommand());
+        
     }
 }

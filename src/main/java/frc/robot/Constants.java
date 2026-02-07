@@ -21,6 +21,6 @@ public final class Constants
 
     public static class LauncherConstants
     {
-        public static final int kLauncherMotorID = 1;
+        public static final int kLauncherMotorID = 2;
     }
 }
