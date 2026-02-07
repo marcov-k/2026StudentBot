@@ -21,9 +21,8 @@ public class Launcher extends SubsystemBase
     public Command launchCommand(XboxController controller)
     {
         return Commands.run(() -> {
-            double speed = 0;
-            if (controller.getAButton()) speed = motorSpeed;
-            this.m_motor.set(speed);
+            if (controller.getAButton()) m_motor.set(motorSpeed);
+            else m_motor.set(0);
         }, this);
     }
 }

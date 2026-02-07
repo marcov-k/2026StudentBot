@@ -21,6 +21,7 @@ public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
     Launcher m_launcher = new Launcher();
+    Intake m_intake = new Intake();
     // Replace with CommandPS4Controller or CommandJoystick if needed
     private final XboxController controller =
         new XboxController(OperatorConstants.kDriverControllerPort);
@@ -31,10 +32,11 @@ public class RobotContainer
         // Configure the trigger bindings
         configureBindings();
         CommandScheduler.getInstance().setDefaultCommand(m_launcher, m_launcher.launchCommand(controller));
+        CommandScheduler.getInstance().setDefaultCommand(m_intake, m_intake.intakeCommand(controller));
     }
 
     void configureBindings()
     {
-        
+
     }
 }
