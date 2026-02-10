@@ -21,12 +21,12 @@ public final class Constants
 
     public static class LauncherConstants
     {
-        public static final int kLauncherMotorID = 3;
+        public static final int kLauncherMotorID = 11;
     }
 
     public static class IntakeConstants
     {
-        public static final int kIntakeLowerMotorID = 1;
-        public static final int kIntakeUpperMotorID = 2;
+        public static final int kIntakeLowerMotorID = 9;
+        public static final int kIntakeUpperMotorID = 10;
     }
 }
