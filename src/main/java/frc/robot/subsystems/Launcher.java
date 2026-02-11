@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.LauncherConstants;
 
 public class Launcher extends SubsystemBase
 {
@@ -15,14 +14,20 @@ public class Launcher extends SubsystemBase
 
     public Launcher()
     {
-        m_motor = new SparkMax(Constants.LauncherConstants.kLauncherMotorID, MotorType.kBrushless);
+        m_motor = new SparkMax(LauncherConstants.kLauncherMotorID, MotorType.kBrushless);
     }
 
-    public Command launchCommand(XboxController controller)
+    public Command launch()
     {
-        return Commands.run(() -> {
-            if (controller.getAButton()) m_motor.set(motorSpeed);
-            else m_motor.set(0);
-        }, this);
+        return Commands.runOnce(() -> {
+            m_motor.set(motorSpeed);
+        });
+    }
+
+    public Command stop()
+    {
+        return Commands.runOnce(() -> {
+            m_motor.set(0);
+        });
     }
 }

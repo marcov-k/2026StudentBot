@@ -5,8 +5,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import frc.robot.Constants;
-import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.Constants.IntakeConstants;
 
 public class Intake extends SubsystemBase
 {
@@ -17,16 +16,22 @@ public class Intake extends SubsystemBase
 
     public Intake()
     {
-        m_lowerMotor = new SparkMax(Constants.IntakeConstants.kIntakeLowerMotorID, MotorType.kBrushless);
-        m_upperMotor = new SparkMax(Constants.IntakeConstants.kIntakeUpperMotorID, MotorType.kBrushless);
+        m_lowerMotor = new SparkMax(IntakeConstants.kIntakeLowerMotorID, MotorType.kBrushless);
+        m_upperMotor = new SparkMax(IntakeConstants.kIntakeUpperMotorID, MotorType.kBrushless);
     }
 
-    public Command intakeCommand(XboxController controller)
+    public Command intake()
     {
-        return Commands.run(() -> {
-            if (controller.getBButton()) setMotors(motorSpeed);
-            else setMotors(0);
-        }, this);
+        return Commands.runOnce(() -> {
+            setMotors(motorSpeed);
+        });
+    }
+
+    public Command stop()
+    {
+        return Commands.runOnce(() -> {
+            setMotors(0);
+        });
     }
 
     void setMotors(double speed)

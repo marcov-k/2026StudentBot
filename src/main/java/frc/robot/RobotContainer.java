@@ -8,7 +8,7 @@ import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -20,23 +20,25 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer
 {
     // The robot's subsystems and commands are defined here...
+    DriveSubsystem m_drive = new DriveSubsystem();
     Launcher m_launcher = new Launcher();
     Intake m_intake = new Intake();
+
     // Replace with CommandPS4Controller or CommandJoystick if needed
-    private final XboxController controller =
-        new XboxController(OperatorConstants.kDriverControllerPort);
+    private final CommandXboxController controller =
+        new CommandXboxController(OperatorConstants.kDriverControllerPort);
 
     /** The container for the robot. Contains subsystems, OI devices, and commands. */
     public RobotContainer()
     {
         // Configure the trigger bindings
         configureBindings();
-        CommandScheduler.getInstance().setDefaultCommand(m_launcher, m_launcher.launchCommand(controller));
-        CommandScheduler.getInstance().setDefaultCommand(m_intake, m_intake.intakeCommand(controller));
+        CommandScheduler.getInstance().setDefaultCommand(m_drive, m_drive.driveCommand(controller, true));
     }
 
     void configureBindings()
     {
-
+        controller.rightTrigger().onTrue(m_launcher.launch()).onFalse(m_launcher.stop());
+        controller.b().onTrue(m_intake.intake()).onFalse(m_intake.stop());
     }
 }
