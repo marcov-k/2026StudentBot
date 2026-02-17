@@ -36,7 +36,7 @@ public class Intake extends SubsystemBase
 
     void setMotors(double speed)
     {
-        m_lowerMotor.set(-speed);
-        m_upperMotor.set(speed);
+        m_lowerMotor.set(speed);
+        m_upperMotor.set(-speed);
     }
 }

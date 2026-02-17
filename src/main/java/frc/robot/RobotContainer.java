@@ -25,7 +25,7 @@ public class RobotContainer
     {
         // Configure the trigger bindings
         configureBindings();
-        CommandScheduler.getInstance().setDefaultCommand(m_drive, m_drive.driveCommand(controller, true));
+        CommandScheduler.getInstance().setDefaultCommand(m_drive, m_drive.driveCommand(controller, false));
     }
 
     void configureBindings()
