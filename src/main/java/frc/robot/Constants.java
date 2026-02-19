@@ -84,7 +84,7 @@ public final class Constants
     @SuppressWarnings("removal")
     public static final class ModuleConstants
     {
-        public static final int kDrivingMotorPinionTeeth = 14;
+        public static final int kDrivingMotorPinionTeeth = 13;
         public static final double kDrivingMotorFreeSpeedRps = 94.6;
         public static final double kWheelDiameterMeters = 0.0762;
         public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
