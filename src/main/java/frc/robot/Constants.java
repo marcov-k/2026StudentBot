@@ -81,6 +81,7 @@ public final class Constants
         public static final double kUnitstoFeet = 4.2;
     }
 
+    @SuppressWarnings("removal")
     public static final class ModuleConstants
     {
         public static final int kDrivingMotorPinionTeeth = 14;
