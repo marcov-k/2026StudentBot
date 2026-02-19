@@ -14,7 +14,7 @@ import com.studica.frc.AHRS;
 
 public class DriveSubsystem extends SubsystemBase
 {
-    final double kSpeedLimit = 0.2;
+    final double kSpeedLimit = 0.5;
 
     final SwerveModule frontLeft;
     final SwerveModule frontRight;

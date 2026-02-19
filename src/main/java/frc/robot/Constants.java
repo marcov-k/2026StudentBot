@@ -8,11 +8,26 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 
+import com.revrobotics.spark.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 public final class Constants
 {
     public static class OperatorConstants
     {
         public static final int kDriverControllerPort = 0;
+    }
+
+    public static class MotorConstants
+    {
+        public static final SparkMaxConfig coastMotorConfig = new SparkMaxConfig();
+        public static final SparkMaxConfig brakeMotorConfig = new SparkMaxConfig();
+        static {
+            coastMotorConfig.idleMode(IdleMode.kCoast);
+            brakeMotorConfig.idleMode(IdleMode.kBrake);
+        }
     }
 
     public static class LauncherConstants
@@ -64,5 +79,30 @@ public final class Constants
         public static final int kRlTurnId = 8;
 
         public static final double kUnitstoFeet = 4.2;
+    }
+
+    public static final class ModuleConstants
+    {
+        public static final int kDrivingMotorPinionTeeth = 14;
+        public static final double kDrivingMotorFreeSpeedRps = 94.6;
+        public static final double kWheelDiameterMeters = 0.0762;
+        public static final double kWheelCircumferenceMeters = kWheelDiameterMeters * Math.PI;
+        public static final double kDrivingMotorReduction = (45.0 * 22) / (kDrivingMotorPinionTeeth * 15);
+        public static final double kDriveWheelFreeSpeedRps = (kDrivingMotorFreeSpeedRps * kWheelCircumferenceMeters) / kDrivingMotorReduction;
+        public static final SparkFlexConfig drivingConfig = new SparkFlexConfig();
+        public static final SparkMaxConfig turningConfig = new SparkMaxConfig();
+        static {
+            double drivingFactor = kWheelCircumferenceMeters / kDrivingMotorReduction;
+            double turningFactor = 2 * Math.PI;
+            double drivingVelocityFeedForward = 1 / kDriveWheelFreeSpeedRps;
+
+            drivingConfig.idleMode(IdleMode.kCoast).smartCurrentLimit(50);
+            drivingConfig.encoder.positionConversionFactor(drivingFactor).velocityConversionFactor(drivingFactor / 60.0);
+            drivingConfig.closedLoop.feedbackSensor(FeedbackSensor.kPrimaryEncoder).pid(0.04,0,0).velocityFF(drivingVelocityFeedForward).outputRange(-1,1);
+
+            turningConfig.idleMode(IdleMode.kBrake).smartCurrentLimit(20);
+            turningConfig.absoluteEncoder.inverted(true).positionConversionFactor(turningFactor).velocityConversionFactor(turningFactor / 60.);
+            turningConfig.closedLoop.feedbackSensor(FeedbackSensor.kAbsoluteEncoder).pid(1,0,0).outputRange(-1, 1).positionWrappingEnabled(true).positionWrappingInputRange(0, turningFactor);
+        }
     }
 }

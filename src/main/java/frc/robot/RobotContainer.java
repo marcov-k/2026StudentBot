@@ -25,12 +25,13 @@ public class RobotContainer
     {
         // Configure the trigger bindings
         configureBindings();
-        CommandScheduler.getInstance().setDefaultCommand(m_drive, m_drive.driveCommand(controller, false));
+        CommandScheduler.getInstance().setDefaultCommand(m_drive, m_drive.driveCommand(controller, true));
     }
 
     void configureBindings()
     {
         controller.rightTrigger().onTrue(m_launcher.launch()).onFalse(m_launcher.stop());
-        controller.b().onTrue(m_intake.intake()).onFalse(m_intake.stop());
+        controller.leftTrigger().onTrue(m_intake.intake()).onFalse(m_intake.stop());
+        controller.leftBumper().onTrue(m_intake.outtake()).onFalse(m_intake.stop());
     }
 }
