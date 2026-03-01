@@ -13,7 +13,7 @@ import frc.robot.Constants.LauncherConstants;
 public class Launcher extends SubsystemBase
 {
     SparkMax m_motor;
-    double motorSpeed = 1;
+    double motorSpeed = 0.5;
 
     @SuppressWarnings("removal")
     public Launcher()
